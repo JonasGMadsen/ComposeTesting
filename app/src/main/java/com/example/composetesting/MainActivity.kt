@@ -3,52 +3,63 @@ package com.example.composetesting
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.TextField
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.composetesting.ui.theme.ComposeTestingTheme
-
+import androidx.compose.ui.unit.dp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MessageCard(Message("Android", "Jetpack Compose"))
+            Calculator()
         }
     }
 }
 
-data class Message(val author: String, val body: String)
-
 @Composable
-fun MessageCard(msg: Message) {
-    Row {
-        Image(
-            painter = painterResource(R.drawable.ic_launcher_background),
-            contentDescription = "Picture",
+fun Calculator() {
+    var number1 by remember { mutableStateOf(TextFieldValue("")) }
+    var number2 by remember { mutableStateOf(TextFieldValue("")) }
+    var result by remember { mutableStateOf("") }
+
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.fillMaxSize().padding(16.dp)
+    ) {
+        TextField(
+            value = number1,
+            onValueChange = { number1 = it },
+            label = { Text("Enter number 1") }
         )
-
-        Column {
-            Text(text = msg.author)
-            Text(text = msg.body)
+        Spacer(modifier = Modifier.height(8.dp))
+        TextField(
+            value = number2,
+            onValueChange = { number2 = it },
+            label = { Text("Enter number 2") }
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = {
+            val num1 = number1.text.toInt()
+            val num2 = number2.text.toInt()
+            result = "Result: ${num1 + num2}"
+        }) {
+            Text("Add")
         }
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(result)
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-fun PreviewMessageCard() {
-    MessageCard(
-        msg = Message("John", "This is Jetpack Compose")
-    )
+fun DefaultPreview() {
+    Calculator()
 }
-
