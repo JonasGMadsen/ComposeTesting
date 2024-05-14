@@ -11,24 +11,26 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Calculator()
+            CalculatorApp()
         }
     }
 }
 
 @Composable
-fun Calculator() {
-    var number1 by remember { mutableStateOf(TextFieldValue("")) }
-    var number2 by remember { mutableStateOf(TextFieldValue("")) }
-    var result by remember { mutableStateOf("") }
-
+fun StatelessCalculator(
+    number1: TextFieldValue,
+    number2: TextFieldValue,
+    result: String,
+    onNumber1Change: (TextFieldValue) -> Unit,
+    onNumber2Change: (TextFieldValue) -> Unit,
+    onAddClick: () -> Unit
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -36,21 +38,17 @@ fun Calculator() {
     ) {
         TextField(
             value = number1,
-            onValueChange = { number1 = it },
+            onValueChange = onNumber1Change,
             label = { Text("Enter number 1") }
         )
         Spacer(modifier = Modifier.height(8.dp))
         TextField(
             value = number2,
-            onValueChange = { number2 = it },
+            onValueChange = onNumber2Change,
             label = { Text("Enter number 2") }
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = {
-            val num1 = number1.text.toInt()
-            val num2 = number2.text.toInt()
-            result = "Result: ${num1 + num2}"
-        }) {
+        Button(onClick = onAddClick) {
             Text("Add")
         }
         Spacer(modifier = Modifier.height(16.dp))
@@ -58,10 +56,25 @@ fun Calculator() {
     }
 }
 
-@Preview(showBackground = true)
+// Parent Composable handling the state
 @Composable
-fun DefaultPreview() {
-    Calculator()
+fun CalculatorApp() {
+    var number1 by remember { mutableStateOf(TextFieldValue("")) }
+    var number2 by remember { mutableStateOf(TextFieldValue("")) }
+    var result by remember { mutableStateOf("") }
+
+    StatelessCalculator(
+        number1 = number1,
+        number2 = number2,
+        result = result,
+        onNumber1Change = { number1 = it },
+        onNumber2Change = { number2 = it },
+        onAddClick = {
+            val num1 = number1.text.toInt()
+            val num2 = number2.text.toInt()
+            result = "Result: ${num1 + num2}"
+        }
+    )
 }
 
 //        TextField(value = "", onValueChange = { }, label = { Text("Enter Text Here") })
