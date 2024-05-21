@@ -1,3 +1,4 @@
+/*
 package com.example.composetesting
 
 import androidx.lifecycle.ViewModel
@@ -67,4 +68,4 @@ class BeerViewModel : ViewModel() {
             repo.filterByQuery(query)
         }
     }
-}
+}*/

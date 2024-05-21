@@ -1,3 +1,4 @@
+/*
 package com.example.composetesting
 
 import java.io.Serializable
@@ -19,4 +20,4 @@ data class Beer(
         return super.toString()
     }
 
-}
+}*/

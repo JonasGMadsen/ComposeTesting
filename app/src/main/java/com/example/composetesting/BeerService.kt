@@ -1,3 +1,4 @@
+/*
 package com.example.composetesting
 
 import retrofit2.Call
@@ -15,4 +16,4 @@ interface BeerService {
 
     @PUT("beers/{id}")
     fun updateBeer(@Path("id") id: Int, @Body beer: Beer): Call<Beer>
-}
+}*/
