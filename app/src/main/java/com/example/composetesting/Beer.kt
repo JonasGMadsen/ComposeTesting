@@ -1,4 +1,3 @@
-/*
 package com.example.composetesting
 
 import java.io.Serializable
@@ -12,7 +11,8 @@ data class Beer(
     val abv: Double,
     val volume: Double,
     val howMany: Int)
-    :Serializable { constructor(user: String, brewery: String, name: String,
+//Unødvendigt med stateflow eller ikke helt. Bruger kun
+/*    :Serializable { constructor(user: String, brewery: String, name: String,
                                 style: String, abv: Double, volume: Double,
                                 howMany: Int) : this(-1, user, brewery, name, style, abv, volume, howMany)
 

@@ -1,19 +1,18 @@
-/*
-package com.example.composetesting
+package com.example.composetesting.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
 import com.example.composetesting.Beer
-import com.example.composetesting.BeerRepo
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import com.example.composetesting.repos.BeerRepo
 
 class BeerViewModel : ViewModel() {
     private val repo = BeerRepo()
 
-    val beersLiveData = repo.beersLiveData
-    val errorMessageLiveData = repo.errorMessageLiveData
-    val reloadingLiveData = repo.reloadingLiveData
-    val updateMessageLiveData = repo.updateMessageLiveData
+    val beersStateFlow: StateFlow<List<Beer>> = repo.beersStateFlow
+    val errorMessageStateFlow: StateFlow<String> = repo.errorMessageStateFlow
+    val reloadingStateFlow: StateFlow<Boolean> = repo.reloadingStateFlow
 
     fun getBeers() {
         viewModelScope.launch {
@@ -21,51 +20,4 @@ class BeerViewModel : ViewModel() {
         }
     }
 
-    fun addBeer(beer: Beer) {
-        viewModelScope.launch {
-            repo.addBeer(beer)
-        }
-    }
-
-    fun deleteBeer(id: Int) {
-        viewModelScope.launch {
-            repo.deleteBeer(id)
-        }
-    }
-
-    fun updateBeer(beer: Beer) {
-        viewModelScope.launch {
-            repo.updateBeer(beer)
-        }
-    }
-
-    fun sortByBrewery() {
-        viewModelScope.launch {
-            repo.sortByBrewery()
-        }
-    }
-
-    fun sortByBreweryDesc() {
-        viewModelScope.launch {
-            repo.sortByBreweryDesc()
-        }
-    }
-
-    fun sortByName() {
-        viewModelScope.launch {
-            repo.sortByName()
-        }
-    }
-
-    fun sortByNameDesc() {
-        viewModelScope.launch {
-            repo.sortByNameDesc()
-        }
-    }
-
-    fun filterByQuery(query: String) {
-        viewModelScope.launch {
-            repo.filterByQuery(query)
-        }
-    }
-}*/
+}
